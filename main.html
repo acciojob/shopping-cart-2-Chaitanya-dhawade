@@ -30,34 +30,9 @@
     </tfoot>
   </table>
 
-  <script>
-    var total = 0;
+  
 
-    function addItem() {
-      var name = document.getElementById('item-name-input').value.trim();
-      var price = parseFloat(document.getElementById('item-price-input').value);
-      var error = document.getElementById('error');
-
-      if (!name || isNaN(price) || price < 0) {
-        error.textContent = 'Please enter a valid name and price.';
-        return;
-      }
-
-      error.textContent = '';
-
-      var row = document.getElementById('item-tbody').insertRow();
-      row.insertCell(0).setAttribute('data-ns-test', 'item-name');
-      row.cells[0].textContent = name;
-      row.insertCell(1).setAttribute('data-ns-test', 'item-price');
-      row.cells[1].textContent = price.toFixed(2);
-
-      total += price;
-      document.querySelector('[data-ns-test="grandTotal"]').textContent = total.toFixed(2);
-
-      document.getElementById('item-name-input').value = '';
-      document.getElementById('item-price-input').value = '';
-    }
-  </script>
+    
 
 </body>
 </html>
