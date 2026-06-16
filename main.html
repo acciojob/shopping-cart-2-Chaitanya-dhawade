@@ -1,38 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Shopping Cart</title>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
 </head>
 <body>
 
-  <h2>Shopping Cart</h2>
+    <h2>Shopping Cart</h2>
 
-  <input type="text" id="item-name-input" placeholder="Item name" />
-  <input type="number" id="item-price-input" placeholder="Price" min="0" step="0.01" />
-  <button onclick="addItem()">Add</button>
+    <input type="text" id="item-name-input" placeholder="Item Name">
+    <input type="number" id="item-price-input" placeholder="Price">
 
-  <p id="error" style="color:red;"></p>
+    <button onclick="addItem()">Add</button>
 
-  <table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody id="item-tbody"></tbody>
-    <tfoot>
-      <tr>
-        <td><strong>Grand Total</strong></td>
-        <td data-ns-test="grandTotal">0</td>
-      </tr>
-    </tfoot>
-  </table>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+            </tr>
+        </thead>
 
-  
+        <tbody id="item-tbody">
+            <tr id="totalRow">
+                <td>Grand Total</td>
+                <td data-ns-test="grandTotal">0</td>
+            </tr>
+        </tbody>
+    </table>
 
-    
+    <script>
+
+        let total = 0;
+
+        function addItem() {
+
+            let name = document.getElementById("item-name-input").value.trim();
+            let price = document.getElementById("item-price-input").value.trim();
+
+            if (name === "" || price === "" || Number(price) <= 0) {
+                return;
+            }
+
+            let tbody = document.getElementById("item-tbody");
+            let totalRow = document.getElementById("totalRow");
+
+            let tr = document.createElement("tr");
+
+            let td1 = document.createElement("td");
+            td1.setAttribute("data-ns-test", "item-name");
+            td1.textContent = name;
+
+            let td2 = document.createElement("td");
+            td2.setAttribute("data-ns-test", "item-price");
+            td2.textContent = price;
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+
+            tbody.insertBefore(tr, totalRow);
+
+            total += Number(price);
+
+            document.querySelector("[data-ns-test='grandTotal']").textContent = total;
+
+            document.getElementById("item-name-input").value = "";
+            document.getElementById("item-price-input").value = "";
+        }
+
+    </script>
 
 </body>
 </html>
